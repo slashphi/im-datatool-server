@@ -22,10 +22,6 @@ sequelize.authenticate()
 .then(() => console.log('Connection has been established successfully.'))
 .catch(error => console.error('Unable to connect to the database:', error));
 
-// to automatically synchronize all models
-/*sequelize.sync({ force: true })
-.then(() => console.log('All models were synchronized successfully.'));*/
-
 const app = express();
 const port = process.env.APP_PORT;
 
