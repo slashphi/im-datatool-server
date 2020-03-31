@@ -19,6 +19,19 @@ module.exports = (sequelize) => {
     });
     AllianceChange.belongsTo(models.alliance, {
       onDelete: 'CASCADE',
+      as: 'oldAlly',
+      foreignKey: {
+        name: 'oldAllyId',
+        allowNull: false,
+      },
+    });
+    AllianceChange.belongsTo(models.alliance, {
+      onDelete: 'CASCADE',
+      as: 'newAlly',
+      foreignKey: {
+        name: 'newAllyId',
+        allowNull: false,
+      },
     });
     AllianceChange.belongsTo(models.world, {
       onDelete: 'CASCADE',
