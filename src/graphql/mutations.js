@@ -6,7 +6,7 @@ const {
 /************************** GraphQL Types **************************/
 const PlayerGraphQLType = require('./models/Player');
 /************************** Services **************************/
-const PlayerService = require('../services/Player');
+const PlayerService = require('../services/player');
 
 const mutations = {
   createPlayer: {
