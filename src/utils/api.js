@@ -319,14 +319,14 @@ async function checkIslandAndAllianceChanges (world) {
     const playerIslandsCount = player.islands.length;
 
     if (oldAlly) {
-      const oldAllyIncrease = oldAlly.alliancePointsIncreases.length > 0 ? oldAlly.alliancePointsIncreases[0] : 0;
+      const oldAllyIncrease = oldAlly.alliancePointsIncreases[0];
       const aPIBulkOldAllyIdx = aPIBulkUpdate.findIndex(aPIObj => aPIObj.id === oldAllyIncrease.id);
 
       // Decrease the old alliance with points and islands
       if (aPIBulkOldAllyIdx === -1) {
         aPIBulkUpdate.push({
           id: oldAllyIncrease.id,
-          pointsIncrease: oldAlly.alliancePointsIncreases[0].points - player.points,
+          pointsIncrease: oldAllyIncrease.pointsIncrease - player.points,
           islandsIncrease: -playerIslandsCount,
           playersIncrease: -1,
         });
@@ -338,7 +338,7 @@ async function checkIslandAndAllianceChanges (world) {
     }
 
     if (newAlly) {
-      const newAllyIncrease = newAlly.alliancePointsIncreases.length > 0 ? newAlly.alliancePointsIncreases[0] : 0;
+      const newAllyIncrease = newAlly.alliancePointsIncreases[0];
       const aPIBulkNewAllyIdx = aPIBulkUpdate.findIndex(aPIObj => aPIObj.id === newAlly.id);
       const playerPointsIncrease = player.playerPointsIncreases[0].pointsIncrease;
 
@@ -346,7 +346,7 @@ async function checkIslandAndAllianceChanges (world) {
       if (aPIBulkNewAllyIdx === -1) {
         aPIBulkUpdate.push({
           id: newAllyIncrease.id,
-          pointsIncrease: newAllyIncrease.points + (player.points - playerPointsIncrease), // because player points increase has already been added
+          pointsIncrease: newAllyIncrease.pointsIncrease + (player.points - playerPointsIncrease), // because player points increase has already been added
           islandsIncrease: playerIslandsCount,
           playersIncrease: 1,
         });
@@ -412,7 +412,7 @@ async function checkIslandAndAllianceChanges (world) {
     const { island, oldOwner, newOwner } = islandChange;
     const islandPoints = island.points;
 
-    const oldOwnerIncrease = oldOwner.playerPointsIncreases.length > 0 ? oldOwner.playerPointsIncreases[0] : 0;
+    const oldOwnerIncrease = oldOwner.playerPointsIncreases[0];
     const pPIBulkOldOwnerIdx = pPIBulkUpdate.findIndex(pPIObj => pPIObj.id === oldOwnerIncrease.id);
 
     // Decrease the old owner with points and islands
@@ -427,7 +427,7 @@ async function checkIslandAndAllianceChanges (world) {
       pPIBulkUpdate[pPIBulkOldOwnerIdx].islandsIncrease -= 1;
     }
 
-    const newOwnerIncrease = newOwner.playerPointsIncreases.length > 0 ? newOwner.playerPointsIncreases[0] : 0;
+    const newOwnerIncrease = newOwner.playerPointsIncreases[0];
     const pPIBulkNewOwnerIdx = pPIBulkUpdate.findIndex(pPIObj => pPIObj.id === newOwnerIncrease.id);
 
     // Increase the new owner with island
@@ -442,7 +442,7 @@ async function checkIslandAndAllianceChanges (world) {
     }
 
     if (oldOwner.allianceId) {
-      const oldAllyIncrease = oldOwner.alliance.alliancePointsIncreases.length > 0 ? oldOwner.alliance.alliancePointsIncreases[0] : 0;
+      const oldAllyIncrease = oldOwner.alliance.alliancePointsIncreases[0];
       const aPIBulkOldAllyIdx = aPIBulkUpdate.findIndex(aPIObj => aPIObj.id === oldAllyIncrease.id);
 
       // Decrease the old alliance with points and islands
@@ -458,7 +458,7 @@ async function checkIslandAndAllianceChanges (world) {
       }
     }
     if (newOwner.allianceId) {
-      const newAllyIncrease = newOwner.alliance.alliancePointsIncreases.length > 0 ? newOwner.alliance.alliancePointsIncreases[0] : 0;
+      const newAllyIncrease = newOwner.alliance.alliancePointsIncreases[0];
       const aPIBulkNewAllyIdx = aPIBulkUpdate.findIndex(aPIObj => aPIObj.id === newAllyIncrease.id);
       const islandPointsIncrease = island.islandPointsIncreases[0].pointsIncrease;
 
