@@ -295,6 +295,15 @@ async function checkIslandAndAllianceChanges (world) {
       },
       {
         model: models.alliance,
+        as: 'oldAlly',
+        include: [{
+          model: models.alliancePointsIncrease,
+          where: { dailyDate: today },
+        }],
+      },
+      {
+        model: models.alliance,
+        as: 'newAlly',
         include: [{
           model: models.alliancePointsIncrease,
           where: { dailyDate: today },
