@@ -3,6 +3,7 @@ const expressGraphQL = require('express-graphql');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const moment = require('moment-timezone');
+const CronJob = require('cron').CronJob;
 
 // to load .env file
 const dotEnvConfig = dotenv.config();
@@ -40,4 +41,8 @@ app.listen(port, () => {
   console.log(`🚀 Local server ready at http://localhost:${port}`);
 });
 
-getWorldData(47);
+// at minute 3 past every 2nd hour
+new CronJob('0 3 */2 * * *', function () {
+  console.log('You will see this message every two hours');
+  getWorldData(47);
+}, null, true, 'Europe/Vienna');
