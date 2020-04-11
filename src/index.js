@@ -1,6 +1,7 @@
 const express = require('express');
 const expressGraphQL = require('express-graphql');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const moment = require('moment-timezone');
 const CronJob = require('cron').CronJob;
@@ -30,7 +31,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // enable cors for graphql endpoint
-app.use('/graphql', expressGraphQL(
+app.use('/graphql', [cors()], expressGraphQL(
   () => ({
     schema: schema,
     graphiql: true,

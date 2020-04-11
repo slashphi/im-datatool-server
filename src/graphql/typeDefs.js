@@ -57,7 +57,9 @@ const typeDefs = `
   type Query {
     players(world: Int, pagination: Pagination = ${defaultPagination}): [Player]
     islands(world: Int, pagination: Pagination = ${defaultPagination}): [Island]
+    alliances(world: Int, pagination: Pagination = ${defaultPagination}): [Alliance]
     islandChanges(world: Int, pagination: Pagination = ${defaultPagination}): [IslandChange]
+    oceansCount(world: Int): Int!
   }
   
   type Mutation {

@@ -7,10 +7,12 @@ exports.getIslandChanges = (pagination, world) => {
       {
         model: models.player,
         as: 'newOwner',
+        include: [models.alliance],
       },
       {
         model: models.player,
         as: 'oldOwner',
+        include: [models.alliance],
       },
     ],
     limit: pagination.perPage,

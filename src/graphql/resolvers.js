@@ -4,6 +4,7 @@ const { Kind } = require('graphql/language');
 const PlayerService = require('../services/player');
 const IslandService = require('../services/island');
 const IslandChangeService = require('../services/islandChange');
+const AllianceService = require('../services/alliance');
 
 const resolvers = {
   Query: {
@@ -15,6 +16,12 @@ const resolvers = {
     },
     islandChanges: (_, { world, pagination }) => {
       return IslandChangeService.getIslandChanges(pagination, world);
+    },
+    alliances: (_, { world, pagination }) => {
+      return AllianceService.getAlliances(pagination, world);
+    },
+    oceansCount: (_, { world }) => {
+      return IslandService.getOceansCount(world);
     },
   },
   Mutation: {
