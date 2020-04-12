@@ -5,6 +5,7 @@ const PlayerService = require('../services/player');
 const IslandService = require('../services/island');
 const IslandChangeService = require('../services/islandChange');
 const AllianceService = require('../services/alliance');
+const AllianceChangeService = require('../services/allianceChange');
 
 const resolvers = {
   Query: {
@@ -19,6 +20,9 @@ const resolvers = {
     },
     alliances: (_, { world, pagination }) => {
       return AllianceService.getAlliances(pagination, world);
+    },
+    allianceChanges: (_, { world, pagination }) => {
+      return AllianceChangeService.getAllianceChanges(pagination, world);
     },
     oceansCount: (_, { world }) => {
       return IslandService.getOceansCount(world);

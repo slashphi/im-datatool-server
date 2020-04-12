@@ -60,6 +60,7 @@ const typeDefs = `
     islands(world: Int, pagination: Pagination = ${defaultPagination}): [Island]
     alliances(world: Int, pagination: Pagination = ${defaultPagination}): [Alliance]
     islandChanges(world: Int, pagination: Pagination = ${defaultPagination}): [IslandChange]
+    allianceChanges(world: Int, pagination: Pagination = ${defaultPagination}): [AllianceChange]
     oceansCount(world: Int): Int!
   }
   
