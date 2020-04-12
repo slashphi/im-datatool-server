@@ -39,6 +39,7 @@ const typeDefs = `
     points: Int
     player: Player
     world: World
+    islandChanges: [IslandChange]
   }
   
   type IslandChange {

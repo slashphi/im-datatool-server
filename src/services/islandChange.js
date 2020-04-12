@@ -4,6 +4,7 @@ exports.getIslandChanges = (pagination, world) => {
   return models.islandChange.findAll({
     include: [
       models.world,
+      models.island,
       {
         model: models.player,
         as: 'newOwner',
