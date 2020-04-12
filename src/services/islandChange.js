@@ -1,6 +1,6 @@
 const models = require('../models');
 
-exports.getIslandChanges = (pagination, world) => {
+exports.getIslandChanges = (pagination, sorting, world) => {
   return models.islandChange.findAll({
     include: [
       models.world,
@@ -16,6 +16,7 @@ exports.getIslandChanges = (pagination, world) => {
         include: [models.alliance],
       },
     ],
+    order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,
     offset: (pagination.page - 1) * pagination.perPage,
   })

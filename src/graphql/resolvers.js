@@ -15,8 +15,8 @@ const resolvers = {
     islands: (_, { world, pagination }) => {
       return IslandService.getIslands(pagination, world);
     },
-    islandChanges: (_, { world, pagination }) => {
-      return IslandChangeService.getIslandChanges(pagination, world);
+    islandChanges: (_, { world, sorting, pagination }) => {
+      return IslandChangeService.getIslandChanges(pagination, sorting, world);
     },
     alliances: (_, { world, pagination }) => {
       return AllianceService.getAlliances(pagination, world);
