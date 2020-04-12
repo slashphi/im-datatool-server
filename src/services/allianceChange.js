@@ -1,6 +1,6 @@
 const models = require('../models');
 
-exports.getAllianceChanges = (pagination, world) => {
+exports.getAllianceChanges = (pagination, sorting, world) => {
   return models.allianceChange.findAll({
     include: [
       models.world,
@@ -14,6 +14,7 @@ exports.getAllianceChanges = (pagination, world) => {
         as: 'oldAlly',
       },
     ],
+    order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,
     offset: (pagination.page - 1) * pagination.perPage,
   })

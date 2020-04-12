@@ -54,13 +54,18 @@ const typeDefs = `
     page: Int
     perPage: Int
   }
+  
+  input Sorting {
+    field: String!
+    order: String!
+  }
 
   type Query {
     players(world: Int, pagination: Pagination = ${defaultPagination}): [Player]
     islands(world: Int, pagination: Pagination = ${defaultPagination}): [Island]
     alliances(world: Int, pagination: Pagination = ${defaultPagination}): [Alliance]
     islandChanges(world: Int, pagination: Pagination = ${defaultPagination}): [IslandChange]
-    allianceChanges(world: Int, pagination: Pagination = ${defaultPagination}): [AllianceChange]
+    allianceChanges(world: Int, sorting: Sorting, pagination: Pagination = ${defaultPagination}): [AllianceChange]
     oceansCount(world: Int): Int!
   }
   
