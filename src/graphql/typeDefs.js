@@ -13,6 +13,9 @@ const typeDefs = `
     code: String
     name: String
     world: World
+    points: Int
+    islands: Int
+    alliancePointsIncreases: [AlliancePointsIncrease]
   }
   
   type AllianceChange {
@@ -21,6 +24,14 @@ const typeDefs = `
     newAlly: Alliance
     player: Player
     createdAt: Date
+  }
+  
+  type AlliancePointsIncrease {
+    id: Int!
+    pointsIncrease: Int
+    islandsIncrease: Int
+    playersIncrease: Int
+    dailyDate: String
   }
 
   type Player {
@@ -61,9 +72,9 @@ const typeDefs = `
   }
 
   type Query {
-    players(world: Int, pagination: Pagination = ${defaultPagination}): [Player]
+    players(world: Int, sorting: Sorting, pagination: Pagination = ${defaultPagination}): [Player]
     islands(world: Int, pagination: Pagination = ${defaultPagination}): [Island]
-    alliances(world: Int, pagination: Pagination = ${defaultPagination}): [Alliance]
+    alliances(world: Int, sorting: Sorting, pagination: Pagination = ${defaultPagination}): [Alliance]
     islandChanges(world: Int, sorting: Sorting, pagination: Pagination = ${defaultPagination}): [IslandChange]
     allianceChanges(world: Int, sorting: Sorting, pagination: Pagination = ${defaultPagination}): [AllianceChange]
     oceansCount(world: Int): Int!

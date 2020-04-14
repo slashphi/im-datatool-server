@@ -1,7 +1,25 @@
+const moment = require('moment-timezone');
+const { Op } = require('sequelize');
+
 const models = require('../models');
 
-exports.getAlliances = (pagination, world) => {
+exports.getAlliances = (pagination, sorting, world) => {
+  const today = moment()
+  .format('YYYY-MM-DD');
+
   return models.alliance.findAll({
+    where: {
+      points: {
+        [Op.gt]: 0,
+      },
+    },
+    include: [
+      {
+        model: models.alliancePointsIncrease,
+        where: { dailyDate: today },
+      },
+    ],
+    order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,
     offset: (pagination.page - 1) * pagination.perPage,
   })

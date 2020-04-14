@@ -1,8 +1,16 @@
+const { Op } = require('sequelize');
+
 const models = require('../models');
 
-exports.getPlayers = (pagination, world) => {
+exports.getPlayers = (pagination, sorting, world) => {
   return models.player.findAll({
+    where: {
+      points: {
+        [Op.gt]: 0,
+      },
+    },
     include: [models.alliance, models.island, models.world],
+    order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,
     offset: (pagination.page - 1) * pagination.perPage,
   })
