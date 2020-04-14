@@ -162,12 +162,7 @@ async function updateAllPoints (world) {
   const today = moment()
   .format('YYYY-MM-DD');
 
-  await models.alliances.update({ points: 0, islands: 0 }, {
-    where: {
-      points: { $gt: 0 },
-      islands: { $gt: 0 },
-    },
-  });
+  await models.alliance.update({ points: 0, islands: 0 }, { where: {} });
 
   const players = await models.player.findAll({
     include: [
