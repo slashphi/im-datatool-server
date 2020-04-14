@@ -162,6 +162,13 @@ async function updateAllPoints (world) {
   const today = moment()
   .format('YYYY-MM-DD');
 
+  await models.alliances.update({ points: 0, islands: 0 }, {
+    where: {
+      points: { $gt: 0 },
+      islands: { $gt: 0 },
+    },
+  });
+
   const players = await models.player.findAll({
     include: [
       {
@@ -420,7 +427,7 @@ async function checkIslandAndAllianceChanges (world) {
       pPIBulkUpdate.push({
         id: oldOwnerIncrease.id,
         pointsIncrease: oldOwnerIncrease.pointsIncrease - islandPoints,
-        islandsIncrease: -1,
+        islandsIncrease: oldOwnerIncrease.islandsIncrease - 1,
       });
     } else {
       pPIBulkUpdate[pPIBulkOldOwnerIdx].pointsIncrease -= islandPoints;
@@ -434,8 +441,8 @@ async function checkIslandAndAllianceChanges (world) {
     if (pPIBulkNewOwnerIdx === -1) {
       pPIBulkUpdate.push({
         id: newOwnerIncrease.id,
-        islandsIncrease: 1,
-        pointsIncrease: 0,
+        islandsIncrease: newOwnerIncrease.islandsIncrease + 1,
+        pointsIncrease: newOwnerIncrease.pointsIncrease,
       });
     } else {
       pPIBulkUpdate[pPIBulkNewOwnerIdx].islandsIncrease += 1;
@@ -450,7 +457,7 @@ async function checkIslandAndAllianceChanges (world) {
         aPIBulkUpdate.push({
           id: oldAllyIncrease.id,
           pointsIncrease: oldAllyIncrease.pointsIncrease - islandPoints,
-          islandsIncrease: -1,
+          islandsIncrease: oldAllyIncrease.islandsIncrease - 1,
         });
       } else {
         aPIBulkUpdate[aPIBulkOldAllyIdx].pointsIncrease -= islandPoints;
@@ -462,12 +469,12 @@ async function checkIslandAndAllianceChanges (world) {
       const aPIBulkNewAllyIdx = aPIBulkUpdate.findIndex(aPIObj => aPIObj.id === newAllyIncrease.id);
       const islandPointsIncrease = island.islandPointsIncreases[0].pointsIncrease;
 
-      // Increase the old alliance with points and islands
+      // Increase the new alliance with points and islands
       if (aPIBulkNewAllyIdx === -1) {
         aPIBulkUpdate.push({
           id: newAllyIncrease.id,
           pointsIncrease: newAllyIncrease.pointsIncrease + (islandPoints - islandPointsIncrease),
-          islandsIncrease: 1,
+          islandsIncrease: newAllyIncrease.islandsIncrease + 1,
         });
       } else {
         aPIBulkUpdate[aPIBulkNewAllyIdx].pointsIncrease += islandPoints;
