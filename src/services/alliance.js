@@ -16,7 +16,8 @@ exports.getAlliances = (pagination, sorting, world) => {
     include: [
       {
         model: models.alliancePointsIncrease,
-        where: { dailyDate: today },
+        limit: 1,
+        order: [['createdAt', 'DESC']],
       },
     ],
     order: sorting ? [[sorting.field, sorting.order]] : [],

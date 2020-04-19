@@ -94,7 +94,7 @@ async function findOrInsertAllIslands (results, world) {
       }
 
       // island owner change
-      if (island.player.name !== line.user_name) {
+      if (island.playerId !== player.id) {
         await models.islandChange.create({
           islandId: island.id,
           oldOwnerId: island.playerId,
