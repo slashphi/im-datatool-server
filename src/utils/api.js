@@ -113,7 +113,12 @@ async function findOrInsertAllIslands (results, world) {
     // Check ob der Spieler eine Allianz hat
     if (line.ally_code) {
       const [obj] = await models.alliance.findOrCreate({
-        where: { code: line.ally_code, name: line.ally_name },
+        where: {
+          [Op.or]: [
+            { code: line.ally_code },
+            { name: line.ally_name },
+          ],
+        },
         include: [
           {
             model: models.world,
@@ -124,8 +129,17 @@ async function findOrInsertAllIslands (results, world) {
         ],
         defaults: {
           worldId: world.id,
+          code: line.ally_code,
+          name: line.ally_name,
         },
       });
+
+      // if code or name is same but the other one isn't it
+      if (obj.code !== line.ally_code || obj.name !== line.ally_name) {
+        obj.code = line.ally_code;
+        obj.name = line.ally_name;
+        obj.save();
+      }
       alliance = obj;
     }
 
