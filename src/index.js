@@ -47,3 +47,9 @@ new CronJob('0 3 */2 * * *', function () {
   console.log('You will see this message every two hours');
   getWorldData(47);
 }, null, true, 'Europe/Vienna');
+
+// at minute 3 past every 2nd hour
+new CronJob('0 8 */2 * * *', function () {
+  console.log('You will see this message every two hours');
+  getWorldData(48);
+}, null, true, 'Europe/Vienna');
