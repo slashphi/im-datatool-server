@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
       number: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
-        unique: true,
       },
       name: {
         type: DataTypes.STRING(191),
@@ -20,6 +19,14 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER.UNSIGNED,
         defaultValue: 0,
       },
+    },
+    {
+      indexes: [
+        {
+          unique: true,
+          fields: ['number', 'worldId'],
+        },
+      ],
     },
   );
 

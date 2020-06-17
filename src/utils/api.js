@@ -176,7 +176,7 @@ async function updateAllPoints (world) {
   const today = moment()
   .format('YYYY-MM-DD');
 
-  await models.alliance.update({ points: 0, islands: 0 }, { where: {} });
+  await models.alliance.update({ points: 0, islands: 0 }, { where: { worldId: world.id } });
 
   const players = await models.player.findAll({
     include: [
