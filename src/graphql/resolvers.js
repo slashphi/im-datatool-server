@@ -10,7 +10,7 @@ const AllianceChangeService = require('../services/allianceChange');
 const resolvers = {
   Query: {
     players: (_, { world, sorting, pagination }) => {
-      return PlayerService.getPlayers(pagination, world);
+      return PlayerService.getPlayers(pagination, sorting, world);
     },
     islands: (_, { world, pagination }) => {
       return IslandService.getIslands(pagination, world);
@@ -19,7 +19,7 @@ const resolvers = {
       return IslandChangeService.getIslandChanges(pagination, sorting, world);
     },
     alliances: (_, { world, sorting, pagination }) => {
-      return AllianceService.getAlliances(pagination, world);
+      return AllianceService.getAlliances(pagination, sorting, world);
     },
     allianceChanges: (_, { world, sorting, pagination }) => {
       return AllianceChangeService.getAllianceChanges(pagination, sorting, world);

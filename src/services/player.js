@@ -9,7 +9,16 @@ exports.getPlayers = (pagination, sorting, world) => {
         [Op.gt]: 0,
       },
     },
-    include: [models.alliance, models.island, models.world],
+    include: [
+      models.alliance,
+      models.island,
+      {
+        model: models.world,
+        where: {
+          number: world ? world : 0,
+        },
+      },
+    ],
     order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,
     offset: (pagination.page - 1) * pagination.perPage,

@@ -10,12 +10,10 @@ module.exports = (sequelize) => {
       code: {
         type: DataTypes.STRING(32),
         allowNull: false,
-        unique: true,
       },
       name: {
         type: DataTypes.STRING(191),
         allowNull: false,
-        unique: true,
       },
       points: {
         type: DataTypes.BIGINT.UNSIGNED,
@@ -25,6 +23,18 @@ module.exports = (sequelize) => {
         type: DataTypes.BIGINT.UNSIGNED,
         defaultValue: 0,
       },
+    },
+    {
+      indexes: [
+        {
+          unique: true,
+          fields: ['name', 'worldId'],
+        },
+        {
+          unique: true,
+          fields: ['code', 'worldId'],
+        },
+      ],
     },
   );
 

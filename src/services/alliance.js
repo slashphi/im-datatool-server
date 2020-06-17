@@ -19,6 +19,12 @@ exports.getAlliances = (pagination, sorting, world) => {
         limit: 1,
         order: [['createdAt', 'DESC']],
       },
+      {
+        model: models.world,
+        where: {
+          number: world ? world : 0,
+        },
+      },
     ],
     order: sorting ? [[sorting.field, sorting.order]] : [],
     limit: pagination.perPage,

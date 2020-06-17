@@ -10,12 +10,19 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING(191),
         allowNull: false,
-        unique: true,
       },
       points: {
         type: DataTypes.INTEGER.UNSIGNED,
         defaultValue: 0,
       },
+    },
+    {
+      indexes: [
+        {
+          unique: true,
+          fields: ['name', 'worldId'],
+        },
+      ],
     },
   );
 

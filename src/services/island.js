@@ -3,7 +3,12 @@ const models = require('../models');
 exports.getIslands = (pagination, world) => {
   return models.island.findAll({
     include: [
-      models.world,
+      {
+        model: models.world,
+        where: {
+          number: world ? world : 0,
+        },
+      },
       {
         model: models.player,
         include: [models.alliance],
@@ -37,7 +42,15 @@ exports.getIslands = (pagination, world) => {
  * @param world
  * @returns {Promise<number>}
  */
-exports.getOceansCount = (world) => {
-  return models.island.findAndCountAll()
+exports.getOceansCount = async (world) => {
+  const worldObj = await models.world.findOne({
+    where: { number: world },
+  });
+  if (!worldObj)
+    return 1;
+
+  return models.island.findAndCountAll({
+    where: { worldId: worldObj.id },
+  })
   .then(({ count }) => Math.ceil(count / 100));
 };

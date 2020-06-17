@@ -3,7 +3,12 @@ const models = require('../models');
 exports.getAllianceChanges = (pagination, sorting, world) => {
   return models.allianceChange.findAll({
     include: [
-      models.world,
+      {
+        model: models.world,
+        where: {
+          number: world ? world : 0,
+        },
+      },
       models.player,
       {
         model: models.alliance,

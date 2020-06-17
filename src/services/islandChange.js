@@ -3,7 +3,12 @@ const models = require('../models');
 exports.getIslandChanges = (pagination, sorting, world) => {
   return models.islandChange.findAll({
     include: [
-      models.world,
+      {
+        model: models.world,
+        where: {
+          number: world ? world : 0,
+        },
+      },
       models.island,
       {
         model: models.player,
