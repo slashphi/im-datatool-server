@@ -8,6 +8,11 @@ module.exports = {
     timezone: '+01:00',
     charset: 'utf8mb4',
     collate: 'utf8mb4_general_ci',
+    dialectOptions: {
+      ssl: {
+          rejectUnauthorized: true
+      }
+  }
   },
   test: {
     username: process.env.DB_USERNAME,
@@ -28,5 +33,10 @@ module.exports = {
     timezone: '+01:00',
     charset: 'utf8mb4',
     collate: 'utf8mb4_general_ci',
+    dialectOptions: {
+      ssl: {
+          rejectUnauthorized: true
+      }
+  }
   },
 };
